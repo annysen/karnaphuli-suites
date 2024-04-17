@@ -6,6 +6,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [show, setShow] = useState(false);
+
   const { login } = useContext(AuthContext);
 
   const handleSubmitForm = (event) => {
@@ -45,15 +47,22 @@ const Login = () => {
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
-              type="password"
+              type={show ? "text" : "password"}
               name="password"
               required
               className="form-control "
             />
+            <small
+              onClick={() => setShow(!show)}
+              className="btn btn-sm border mt-2"
+            >
+              {show ? <small>Hide</small> : <small>Show</small>}
+            </small>
           </div>
           <button type="submit" className="btn btn-primary">
             Login
           </button>
+
           <div className="mt-3">
             <p>
               new in Karnaphuli Suites? Please{" "}
