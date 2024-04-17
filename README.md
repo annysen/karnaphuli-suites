@@ -1,8 +1,26 @@
-# React + Vite
+# Karnaphuli Suites Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A hotel room reservation website using Vite, React Router, and Firebase Authentication.
 
-Currently, two official plugins are available:
+## Dependencies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `react`, `react-dom`, `react-router-dom`: For building the UI and routing.
+- `firebase`: For authentication and data management.
+- `vite`: For fast development and build setup.
+
+## Authentication
+
+- Users can sign up using email/password or Google.
+- Private routes restrict access to authenticated users.
+
+## Development
+
+1. Clone repo: `https://github.com/annysen/karnaphuli-suites`
+2. Install deps: `npm install`
+3. Configure Firebase in `src/services/firebase.js`
+4. Start dev server: `npm run dev`
+
+## Deployment
+
+1. Build: `npm run build`
+2. Deploy `dist/` directory to hosting platform.
