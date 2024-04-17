@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
@@ -8,6 +8,10 @@ const Login = () => {
   const [success, setSuccess] = useState("");
   const [show, setShow] = useState(false);
   const emailRef = useRef();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathName || "/";
 
   // get context
   const { login, resetPassword } = useContext(AuthContext);
@@ -26,6 +30,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate(from, { replace: true });
         form.reset();
       })
       .catch((error) => {

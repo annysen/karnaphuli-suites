@@ -5,6 +5,7 @@ import Booking from "../Components/Booking";
 import Login from "../Components/Login";
 import Home from "../Components/Home";
 import Register from "../Components/Register";
+import PrivetRoute from "../PrivetRoute/PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/booking",
-        element: <Booking />,
+        element: (
+          <PrivetRoute>
+            <Booking />
+          </PrivetRoute>
+        ),
       },
       {
         path: "/login",
