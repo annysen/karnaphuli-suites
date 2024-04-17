@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -7,8 +7,10 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [show, setShow] = useState(false);
+  const emailRef = useRef();
 
-  const { login } = useContext(AuthContext);
+  // get context
+  const { login, resetPassword } = useContext(AuthContext);
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
@@ -30,6 +32,24 @@ const Login = () => {
         setError(error.message);
       });
   };
+
+  // reset password
+  const handleResetPass = (event) => {
+    const email = emailRef.current.value;
+    if (!email) {
+      alert("Please Enter Email");
+      return;
+    }
+    resetPassword(email)
+      .then(() => {
+        alert("Please check your email");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+
+    console.log("clicked");
+  };
   return (
     <div>
       <h3 className="text-center fw-bold">Please Login</h3>
@@ -40,6 +60,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              ref={emailRef}
               required
               className="form-control "
             />
@@ -62,6 +83,14 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">
             Login
           </button>
+
+          <button onClick={handleResetPass} className="btn ms-2">
+            Forget password?
+          </button>
+
+          <br />
+          {success && <span>{success}</span>}
+          {error && <span>{error}</span>}
 
           <div className="mt-3">
             <p>

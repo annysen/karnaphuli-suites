@@ -16,7 +16,7 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    const user = form.user.value;
+    const userName = form.user.value;
     const email = form.email.value;
     const password = form.password.value;
 
@@ -30,16 +30,11 @@ const Register = () => {
     setError("");
     setSuccess("");
 
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        setSuccess("Congratulation! You create a account");
-        form.reset();
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    createUser(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+      setSuccess("Congratulation! You create a account");
+    });
   };
 
   // reg with google
