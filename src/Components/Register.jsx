@@ -2,12 +2,17 @@ import { useContext, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { createUser } = useContext(AuthContext);
+  const { createUser, googleLogin } = useContext(AuthContext);
 
+  // google provider
+  const googleProvider = new GoogleAuthProvider();
+
+  // registration with form
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -31,6 +36,17 @@ const Register = () => {
         console.log(user);
         setSuccess("Congratulation! You create a account");
         form.reset();
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  // reg with google
+  const handleGoogle = () => {
+    googleLogin(googleProvider)
+      .then((result) => {
+        console.log(result.user);
       })
       .catch((error) => {
         setError(error.message);
@@ -78,7 +94,11 @@ const Register = () => {
             {success && <small className="text-success">{success}</small>}
 
             <div className="mt-3 mx-auto">
-              <button type="button" className="btn btn-outline-primary w-100">
+              <button
+                onClick={handleGoogle}
+                type="button"
+                className="btn btn-outline-primary w-100"
+              >
                 Register with Google
               </button>
             </div>
