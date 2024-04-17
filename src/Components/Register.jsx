@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
-import { GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider, updateProfile } from "firebase/auth";
 
 const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { createUser, googleLogin } = useContext(AuthContext);
+  const { createUser, googleLogin, user } = useContext(AuthContext);
 
   // google provider
   const googleProvider = new GoogleAuthProvider();
@@ -30,11 +30,16 @@ const Register = () => {
     setError("");
     setSuccess("");
 
-    createUser(email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
-      setSuccess("Congratulation! You create a account");
-    });
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+
+        setSuccess("Congratulation! You create a account");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   // reg with google

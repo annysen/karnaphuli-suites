@@ -52,6 +52,7 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  // logout
   const logout = () => {
     return signOut(auth);
   };

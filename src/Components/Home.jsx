@@ -1,68 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Room from "./Room";
 
 const Home = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/data")
+      .then((res) => res.json())
+      .then((res) => setData(res.packages))
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
   return (
-    <div className="row row-cols-1 row-cols-md-3 g-4 mx-auto mt-5">
-      <div className="col">
-        <div className="card" style={{ width: "18rem" }}>
-          <img src="..." className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card" style={{ width: "18rem" }}>
-          <img src="..." className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card" style={{ width: "18rem" }}>
-          <img src="..." className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card" style={{ width: "18rem" }}>
-          <img src="..." className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </div>
+    <div className="row row-cols-1 row-cols-md-2 g-4">
+      {data.map((d) => (
+        <Room key={d.id} data={d}></Room>
+      ))}
     </div>
   );
 };
